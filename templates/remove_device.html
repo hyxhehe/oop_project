@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>删除设备</title></head>
+<body>
+<h1>删除设备</h1>
+<input id="device_id" placeholder="设备ID">
+<button onclick="removeDevice()">删除</button>
+<script>
+async function removeDevice(){
+  const id=document.getElementById('device_id').value;
+  const res=await fetch(`/devices/${id}`,{method:'DELETE'});
+  if(res.ok) alert('删除成功'); else alert('删除失败');
+}
+</script>
+</body>
+</html>

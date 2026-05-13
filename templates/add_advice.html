@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>添加设备</title></head>
+<body>
+<h1>添加设备</h1>
+<form id="addDeviceForm">
+<select id="deviceType"><option value="Light">Light</option><option value="Thermostat">Thermostat</option><option value="Camera">Camera</option></select>
+<input type="text" id="deviceId" placeholder="设备ID" required>
+<input type="text" id="deviceName" placeholder="设备名称" required>
+<input type="number" id="brightness" placeholder="亮度" value="100">
+<input type="number" id="temperature" placeholder="温度" value="22">
+<input type="text" id="resolution" placeholder="分辨率" value="1080p">
+<button type="button" onclick="submitDevice()">提交</button>
+</form>
+<script>
+async function submitDevice(){
+ const type=document.getElementById('deviceType').value;
+ const payload={id:deviceId.value,name:deviceName.value,type};
+ if(type==='Light') payload.brightness=Number(brightness.value);
+ if(type==='Thermostat') payload.temperature=Number(temperature.value);
+ if(type==='Camera') payload.resolution=resolution.value;
+ const res=await fetch('/add_device',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+ if(!res.ok){alert('添加失败');return;}
+ alert('添加成功');
+}
+</script>
+</body>
+</html>

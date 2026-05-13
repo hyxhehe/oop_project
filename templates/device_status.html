@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Device Status</title></head>
+<body>
+<h1>Device Status</h1>
+<input id="device_id" placeholder="device id">
+<button onclick="changeStatus('on')">On</button>
+<button onclick="changeStatus('off')">Off</button>
+<div id="status"></div>
+<script>
+async function changeStatus(command){
+  const id=document.getElementById('device_id').value;
+  const res=await fetch(`/devices/${id}/${command}`,{method:'PUT'});
+  const data=await res.json();
+  document.getElementById('status').textContent=data.status||data.error;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>设备列表</title></head>
+<body>
+  <h1>设备列表</h1>
+  <input id="searchInput" placeholder="Search devices..." />
+  <table border="1">
+    <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Status</th><th>Energy</th></tr></thead>
+    <tbody id="deviceBody"></tbody>
+  </table>
+<script>
+async function loadDevices(){
+  const res=await fetch('/devices');
+  const data=await res.json();
+  const body=document.getElementById('deviceBody');
+  body.innerHTML='';
+  data.forEach(d=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${d.id}</td><td>${d.name}</td><td>${d.type}</td><td>${d.status}</td><td>${d.energy_usage}</td>`;body.appendChild(tr);});
+}
+document.getElementById('searchInput').addEventListener('input',function(){
+  const term=this.value.toLowerCase();
+  document.querySelectorAll('#deviceBody tr').forEach(r=>r.style.display=r.textContent.toLowerCase().includes(term)?'':'none');
+});
+loadDevices();
+</script>
+</body>
+</html>
